@@ -1,7 +1,8 @@
-package com.githubapp.mvvm
+package com.githubapp.mvvm.ui.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.githubapp.mvvm.R
 
 class MainActivity : AppCompatActivity() {
 
