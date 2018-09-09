@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -42,6 +44,7 @@ dependencies {
 
     // Room
     implementation 'androidx.room:room-runtime:2.0.0-rc01'
+    implementation 'com.android.support:support-v4:28.0.0-rc02'
     kapt 'androidx.room:room-compiler:2.0.0-rc01'
 
     // Paging
