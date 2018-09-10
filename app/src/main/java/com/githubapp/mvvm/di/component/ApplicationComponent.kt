@@ -6,19 +6,17 @@ import com.githubapp.mvvm.di.module.ApplicationBinding
 import com.githubapp.mvvm.di.module.ApplicationModule
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
 @Component(modules = [
-    (AndroidInjectionModule::class),
+    (AndroidSupportInjectionModule::class),
     (ApplicationModule::class),
     (ApplicationBinding::class)])
-interface ApplicationComponent {
+@Singleton
+interface ApplicationComponent : AndroidInjector<GithubApp> {
     @Component.Builder
-    interface Builder{
-        @BindsInstance
-        fun application(application: Application): Builder
-        fun build(): ApplicationComponent
-    }
-
-    fun inject(app: GithubApp)
+    abstract class Builder : AndroidInjector.Builder<GithubApp>()
 }
