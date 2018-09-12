@@ -2,6 +2,12 @@
     <!-- APP -->
     <string name="app_name">GithubApp</string>
 
+    <!-- LOGIN -->
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_button_login">Login</string>
+    <string name="login_info_login">Use your Github credentials to login.</string>
+
     <!-- HELPERS -->
     <string name="placeholder_dots">...</string>
     <string name="empty"> </string>

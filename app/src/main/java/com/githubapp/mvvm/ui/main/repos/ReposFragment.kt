@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -15,39 +13,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.githubapp.mvvm.R
 import com.githubapp.mvvm.enums.LoadingState
 import com.githubapp.mvvm.enums.Sort
 import com.githubapp.mvvm.ui.base.ReposViewModelFactory
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_repos.*
 import javax.inject.Inject
 
 
 class ReposFragment : Fragment() {
-    @BindView(R.id.recycler_repos)
-    lateinit var mReposRecycler: RecyclerView
-
-    @BindView(R.id.refresh_repos)
-    lateinit var mReposRefresh: SwipeRefreshLayout
-
-    @BindView(R.id.search)
-    lateinit var mSearch: SearchView
-
-    @BindView(R.id.toggle_stars)
-    lateinit var mStars: RadioButton
-
-    @BindView(R.id.toggle_forks)
-    lateinit var mForks: RadioButton
-
-    @BindView(R.id.toggle_updated)
-    lateinit var mUpdated: RadioButton
-
-    @BindView(R.id.group_sort)
-    lateinit var mSort: RadioGroup;
-
     @Inject
     lateinit var mViewModelFactory: ReposViewModelFactory
 
@@ -57,7 +32,6 @@ class ReposFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-
         AndroidSupportInjection.inject(this)
     }
 
@@ -69,23 +43,21 @@ class ReposFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ButterKnife.bind(this, view)
-
         mAdapter = ReposAdapter()
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        mReposRecycler.setAdapter(mAdapter)
-        mReposRecycler.setLayoutManager(layoutManager)
-        mReposRecycler.addItemDecoration(itemDecoration)
+        recyclerRepos.setAdapter(mAdapter)
+        recyclerRepos.setLayoutManager(layoutManager)
+        recyclerRepos.addItemDecoration(itemDecoration)
 
-        mReposRefresh.setOnRefreshListener {
+        refreshRepos.setOnRefreshListener {
             mViewModel.reloadData()
-            mReposRefresh.isRefreshing = false
+            refreshRepos.isRefreshing = false
         }
 
-        mSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 mViewModel.setQuery(query!!)
                 return true
@@ -97,11 +69,11 @@ class ReposFragment : Fragment() {
 
         })
 
-        mSort.setOnCheckedChangeListener { _, id ->
+        groupSort.setOnCheckedChangeListener { _, id ->
             when(id){
-                R.id.toggle_stars -> mViewModel.setSort(Sort.STARS)
-                R.id.toggle_forks -> mViewModel.setSort(Sort.FORKS)
-                R.id.toggle_updated -> mViewModel.setSort(Sort.UPDATED)
+                R.id.toggleStars -> mViewModel.setSort(Sort.STARS)
+                R.id.toggleForks -> mViewModel.setSort(Sort.FORKS)
+                R.id.toggleUpdated -> mViewModel.setSort(Sort.UPDATED)
             }
         }
 
@@ -123,11 +95,11 @@ class ReposFragment : Fragment() {
     }
 
     private fun showLoading(){
-        mReposRefresh.isRefreshing = true
+        refreshRepos.isRefreshing = true
     }
 
     private fun hideLoading(){
-        mReposRefresh.isRefreshing = false
+        refreshRepos.isRefreshing = false
     }
 
     private fun showError(message: String){

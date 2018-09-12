@@ -2,9 +2,11 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
@@ -72,10 +74,6 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
-    // Butter knife
-    implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
-    kapt 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
 
     // GlideModule
     implementation 'com.github.bumptech.glide:glide:4.8.0'
