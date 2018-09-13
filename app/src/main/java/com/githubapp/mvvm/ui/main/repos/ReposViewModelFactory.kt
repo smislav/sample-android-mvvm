@@ -1,13 +1,10 @@
-package com.githubapp.mvvm.ui.base
+package com.githubapp.mvvm.ui.main.repos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import com.githubapp.data.models.Repo
-import com.githubapp.mvvm.ui.main.repos.ReposDataSource
-import com.githubapp.mvvm.ui.main.repos.ReposDataSourceFactory
-import com.githubapp.mvvm.ui.main.repos.ReposViewModel
 import javax.inject.Inject
 
 class ReposViewModelFactory: ViewModelProvider.Factory{
@@ -24,6 +21,6 @@ class ReposViewModelFactory: ViewModelProvider.Factory{
         if(modelClass.isAssignableFrom(ReposViewModel::class.java)){
             return ReposViewModel(dataSourceFactory, repos) as T
         }
-        throw RuntimeException("View model not found")
+        throw RuntimeException("ViewModel not found")
     }
 }

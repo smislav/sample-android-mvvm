@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.githubapp.mvvm.R
 import com.githubapp.mvvm.enums.LoadingState
 import com.githubapp.mvvm.enums.Sort
-import com.githubapp.mvvm.ui.base.ReposViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_repos.*
 import javax.inject.Inject
@@ -24,11 +23,11 @@ import javax.inject.Inject
 
 class ReposFragment : Fragment() {
     @Inject
-    lateinit var mViewModelFactory: ReposViewModelFactory
+    lateinit var viewModelFactory: ReposViewModelFactory
 
-    lateinit var mViewModel: ReposViewModel
+    private lateinit var viewModel: ReposViewModel
 
-    lateinit var mAdapter: ReposAdapter
+    private lateinit var adapter: ReposAdapter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -43,23 +42,23 @@ class ReposFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mAdapter = ReposAdapter()
+        adapter = ReposAdapter()
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        recyclerRepos.setAdapter(mAdapter)
+        recyclerRepos.setAdapter(adapter)
         recyclerRepos.setLayoutManager(layoutManager)
         recyclerRepos.addItemDecoration(itemDecoration)
 
         refreshRepos.setOnRefreshListener {
-            mViewModel.reloadData()
+            viewModel.reloadData()
             refreshRepos.isRefreshing = false
         }
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                mViewModel.setQuery(query!!)
+                viewModel.setQuery(query!!)
                 return true
             }
 
@@ -71,24 +70,24 @@ class ReposFragment : Fragment() {
 
         groupSort.setOnCheckedChangeListener { _, id ->
             when(id){
-                R.id.toggleStars -> mViewModel.setSort(Sort.STARS)
-                R.id.toggleForks -> mViewModel.setSort(Sort.FORKS)
-                R.id.toggleUpdated -> mViewModel.setSort(Sort.UPDATED)
+                R.id.toggleStars -> viewModel.setSort(Sort.STARS)
+                R.id.toggleForks -> viewModel.setSort(Sort.FORKS)
+                R.id.toggleUpdated -> viewModel.setSort(Sort.UPDATED)
             }
         }
 
-        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(ReposViewModel::class.java)
-        mViewModel.repos.observe(this, Observer {
-            mAdapter.submitList(it)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[ReposViewModel::class.java]
+        viewModel.repos.observe(this, Observer {
+            adapter.submitList(it)
         })
-        mViewModel.getLiveDataSource().observe(this, Observer {
-            it.loadingState.observe(this, Observer {
-                when(it!!){
+        viewModel.getLiveDataSource().observe(this, Observer { source ->
+            source.loadingState.observe(this, Observer { state ->
+                when(state!!){
                     LoadingState.IN_PROGRESS -> showLoading()
                     LoadingState.DONE -> hideLoading()
-                    LoadingState.ACCESS_ERROR -> showError("Access error")
-                    LoadingState.NETWORK_ERROR -> showError("Network error")
-                    LoadingState.UNKNOWN_ERROR -> showError("Unknown error")
+                    LoadingState.ACCESS_ERROR -> showError(getString(R.string.error_access))
+                    LoadingState.NETWORK_ERROR -> showError(getString(R.string.error_network))
+                    LoadingState.UNKNOWN_ERROR -> showError(getString(R.string.error_unknown))
                 }
             })
         })

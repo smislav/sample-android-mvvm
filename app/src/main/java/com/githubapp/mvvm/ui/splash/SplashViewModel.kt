@@ -2,24 +2,22 @@ package com.githubapp.mvvm.ui.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.githubapp.mvvm.ui.login.LoginManager
+import javax.inject.Inject
 
 class SplashViewModel : ViewModel{
-    companion object {
-        const val LOGGED: String = "LOGGED"
-        const val NOT_LOGGED: String = "NOT_LOGGED"
-    }
+    var loginManager: LoginManager
+    var logged: MutableLiveData<Boolean>
 
-    var state: MutableLiveData<String>
-
-    constructor(){
-        state = MutableLiveData()
-    }
-
-    fun startSpash(){
-
+    @Inject
+    constructor(loginManager: LoginManager){
+        this.loginManager = loginManager
+        logged = MutableLiveData()
     }
 
     fun checkLogin(){
-        state.postValue(LOGGED)
+        logged.postValue(
+                loginManager.isLogged()
+        )
     }
 }

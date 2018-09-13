@@ -8,6 +8,11 @@
     <string name="login_button_login">Login</string>
     <string name="login_info_login">Use your Github credentials to login.</string>
 
+    <!-- ERROR -->
+    <string name="error_access">Access error</string>
+    <string name="error_network">Network error</string>
+    <string name="error_unknown">Unknown error</string>
+
     <!-- HELPERS -->
     <string name="placeholder_dots">...</string>
     <string name="empty"> </string>

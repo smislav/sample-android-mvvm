@@ -10,21 +10,13 @@
         android:name="com.githubapp.mvvm.ui.main.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main"/>
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.githubapp.mvvm.ui.login.LoginActivity"
-        android:label="LoginActivity"
-        tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.githubapp.mvvm.ui.blank.BlankFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_blank">
         <action
-            android:id="@+id/splashToMain"
+            android:id="@+id/loginToMain"
             app:destination="@id/mainActivity"/>
-        <action
-            android:id="@+id/splashToLogin"
-            app:destination="@id/loginActivity"/>
     </fragment>
 </navigation>

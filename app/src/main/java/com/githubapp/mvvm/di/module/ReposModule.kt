@@ -6,11 +6,10 @@ import androidx.paging.PagedList
 import com.githubapp.data.models.Repo
 import com.githubapp.data.source.GithubRepository
 import com.githubapp.di.scope.FragmentScope
-import com.githubapp.mvvm.ui.base.ReposViewModelFactory
 import com.githubapp.mvvm.ui.main.repos.ReposDataSourceFactory
+import com.githubapp.mvvm.ui.main.repos.ReposViewModelFactory
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class ReposModule {
@@ -35,6 +34,6 @@ class ReposModule {
     @Provides
     @FragmentScope
     fun provideViewModelFactory(dataSourceFactory: ReposDataSourceFactory, repos: LiveData<PagedList<Repo>>): ReposViewModelFactory {
-        return ReposViewModelFactory(dataSourceFactory,repos);
+        return ReposViewModelFactory(dataSourceFactory, repos)
     }
 }

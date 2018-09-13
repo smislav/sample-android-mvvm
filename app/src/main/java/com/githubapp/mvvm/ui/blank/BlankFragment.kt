@@ -1,4 +1,4 @@
-package com.githubapp.mvvm.ui.splash.blank
+package com.githubapp.mvvm.ui.blank
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

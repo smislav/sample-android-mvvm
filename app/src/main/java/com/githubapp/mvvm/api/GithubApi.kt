@@ -1,7 +1,7 @@
 package com.githubapp.api
 
 import com.githubapp.api.models.Authorization
-import com.githubapp.api.models.AuthorizationRequest
+import com.githubapp.mvvm.api.models.AuthorizationRequest
 import com.githubapp.api.models.GetReposResponse
 import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User

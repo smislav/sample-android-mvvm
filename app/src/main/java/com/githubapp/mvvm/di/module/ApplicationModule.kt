@@ -1,11 +1,13 @@
 package com.githubapp.mvvm.di.module
 
 import android.content.Context
+import android.preference.PreferenceManager
 import com.githubapp.api.GithubApi
 import com.githubapp.data.source.GithubRepository
 import com.githubapp.mvvm.GithubApp
 import com.githubapp.mvvm.data.remote.RemoteGithubRepository
 import com.githubapp.mvvm.ui.login.LoginManager
+import com.githubapp.mvvm.ui.login.LoginPreferences
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -51,7 +53,13 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideLoginManager(context: Context, githubApi: GithubApi): LoginManager {
-        return LoginManager(context, githubApi)
+    fun provideLoginPreferences(context: Context): LoginPreferences{
+        return LoginPreferences(PreferenceManager.getDefaultSharedPreferences(context))
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginManager(context: Context, api: GithubApi, preferences: LoginPreferences): LoginManager {
+        return LoginManager(context, api, preferences)
     }
 }
