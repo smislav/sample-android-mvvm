@@ -23,14 +23,14 @@ class ProfileViewModel : ViewModel {
     }
 
     fun getCurrentUser(){
-        state.postValue(LoadingState.IN_PROGRESS)
+        state.postValue(LoadingState.LOADING)
         loginManager.user()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SimpleCallbackWrapper<User>() {
                     override fun onNext(t: User) {
                         user.postValue(t)
-                        state.postValue(LoadingState.DONE)
+                        state.postValue(LoadingState.LOADED)
                     }
 
                     override fun onNetworkError() {

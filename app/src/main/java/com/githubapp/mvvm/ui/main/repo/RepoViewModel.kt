@@ -23,14 +23,14 @@ class RepoViewModel : ViewModel {
     }
 
     fun getRepo(username: String, repoName: String){
-        state.postValue(LoadingState.IN_PROGRESS)
+        state.postValue(LoadingState.LOADING)
         data.getRepo(username, repoName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SimpleCallbackWrapper<Repo>() {
                     override fun onNext(t: Repo) {
                         repo.postValue(t)
-                        state.postValue(LoadingState.DONE)
+                        state.postValue(LoadingState.LOADED)
                     }
 
                     override fun onNetworkError() {

@@ -43,10 +43,11 @@
     <string name="error_network">Network error</string>
     <string name="error_unknown">Unknown error</string>
 
+    <!-- MESSAGE -->
+    <string name="message_loading">Loading</string>
+    <string name="message_loaded">Loaded</string>
+
     <!-- HELPERS -->
     <string name="placeholder_dots">...</string>
     <string name="empty"> </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -28,7 +28,7 @@ class ReposDataSource: PageKeyedDataSource<Int, Repo> {
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Repo>) {
-        loadingState.postValue(LoadingState.IN_PROGRESS)
+        loadingState.postValue(LoadingState.LOADING)
         dataSource
                 .getRepos(0, query, sort.value)
                 .subscribeOn(Schedulers.io())
@@ -36,7 +36,7 @@ class ReposDataSource: PageKeyedDataSource<Int, Repo> {
                 .subscribe(object: SimpleCallbackWrapper<List<Repo>>(){
                     override fun onNext(t: List<Repo>) {
                         callback.onResult(t, null, 1)
-                        loadingState.postValue(LoadingState.DONE)
+                        loadingState.postValue(LoadingState.LOADED)
                     }
 
                     override fun onAccessError() {
@@ -54,7 +54,7 @@ class ReposDataSource: PageKeyedDataSource<Int, Repo> {
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
-        loadingState.postValue(LoadingState.IN_PROGRESS)
+        loadingState.postValue(LoadingState.LOADING)
         dataSource
                 .getRepos(params.key, query, sort.value)
                 .subscribeOn(Schedulers.io())
@@ -62,7 +62,7 @@ class ReposDataSource: PageKeyedDataSource<Int, Repo> {
                 .subscribe(object: SimpleCallbackWrapper<List<Repo>>(){
                     override fun onNext(t: List<Repo>) {
                         callback.onResult(t, params.key + 1)
-                        loadingState.postValue(LoadingState.DONE)
+                        loadingState.postValue(LoadingState.LOADED)
                     }
 
                     override fun onAccessError() {

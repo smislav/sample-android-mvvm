@@ -23,14 +23,14 @@ class UserViewModel : ViewModel {
     }
 
     fun getUser(username: String){
-        state.postValue(LoadingState.IN_PROGRESS)
+        state.postValue(LoadingState.LOADING)
         data.getUser(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SimpleCallbackWrapper<User>() {
                     override fun onNext(t: User) {
                         user.postValue(t)
-                        state.postValue(LoadingState.DONE)
+                        state.postValue(LoadingState.LOADED)
                     }
 
                     override fun onNetworkError() {

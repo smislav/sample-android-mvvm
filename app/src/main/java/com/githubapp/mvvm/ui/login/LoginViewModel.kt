@@ -20,13 +20,13 @@ class LoginViewModel : ViewModel{
     }
 
     fun login(username: String, password: String){
-        loadingState.postValue(LoadingState.IN_PROGRESS)
+        loadingState.postValue(LoadingState.LOADING)
         loginManager.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SimpleCallbackWrapper<Authorization>(){
                     override fun onNext(t: Authorization) {
-                        loadingState.postValue(LoadingState.DONE)
+                        loadingState.postValue(LoadingState.LOADED)
                     }
 
                     override fun onNetworkError() {
