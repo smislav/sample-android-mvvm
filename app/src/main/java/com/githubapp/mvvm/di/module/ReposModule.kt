@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.githubapp.data.models.Repo
-import com.githubapp.data.source.GithubRepository
+import com.githubapp.mvvm.data.DataSource
 import com.githubapp.di.scope.FragmentScope
 import com.githubapp.mvvm.ui.main.repos.ReposDataSourceFactory
 import com.githubapp.mvvm.ui.main.repos.ReposViewModelFactory
@@ -15,8 +15,8 @@ import dagger.Provides
 class ReposModule {
     @Provides
     @FragmentScope
-    fun provideDataSourceFactory(githubRepository: GithubRepository): ReposDataSourceFactory {
-        return ReposDataSourceFactory(githubRepository)
+    fun provideDataSourceFactory(dataSource: DataSource): ReposDataSourceFactory {
+        return ReposDataSourceFactory(dataSource)
     }
 
     @Provides

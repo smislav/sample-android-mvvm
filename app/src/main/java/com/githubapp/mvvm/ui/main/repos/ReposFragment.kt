@@ -10,16 +10,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.githubapp.data.models.Repo
+import com.githubapp.data.models.User
 import com.githubapp.mvvm.R
 import com.githubapp.mvvm.enums.LoadingState
 import com.githubapp.mvvm.enums.Sort
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_repos.*
 import javax.inject.Inject
-
 
 class ReposFragment : Fragment() {
     @Inject
@@ -28,6 +31,8 @@ class ReposFragment : Fragment() {
     private lateinit var viewModel: ReposViewModel
 
     private lateinit var adapter: ReposAdapter
+
+    private lateinit var navigation: NavController
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -42,7 +47,13 @@ class ReposFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navigation = Navigation.findNavController(view)
+
         adapter = ReposAdapter()
+        adapter.repoClick.observe(this, Observer { onRepoClick(it) })
+        adapter.userClick.observe(this, Observer { onUserClick(it) })
+
+        buttonProfile.setOnClickListener{ onProfileClick() }
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
@@ -65,16 +76,11 @@ class ReposFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
             }
-
         })
 
-        groupSort.setOnCheckedChangeListener { _, id ->
-            when(id){
-                R.id.toggleStars -> viewModel.setSort(Sort.STARS)
-                R.id.toggleForks -> viewModel.setSort(Sort.FORKS)
-                R.id.toggleUpdated -> viewModel.setSort(Sort.UPDATED)
-            }
-        }
+        toggleStars.setOnClickListener { viewModel.setSort(Sort.STARS) }
+        toggleForks.setOnClickListener { viewModel.setSort(Sort.FORKS) }
+        toggleUpdated.setOnClickListener { viewModel.setSort(Sort.UPDATED) }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[ReposViewModel::class.java]
         viewModel.repos.observe(this, Observer {
@@ -91,6 +97,18 @@ class ReposFragment : Fragment() {
                 }
             })
         })
+    }
+
+    private fun onRepoClick(repo: Repo){
+        navigation.navigate(ReposFragmentDirections.reposToRepo(repo.user.username, repo.name))
+    }
+
+    private fun onUserClick(user: User){
+       navigation.navigate(ReposFragmentDirections.reposToUser(user.username))
+    }
+
+    private fun onProfileClick(){
+        navigation.navigate(ReposFragmentDirections.reposToProfile())
     }
 
     private fun showLoading(){

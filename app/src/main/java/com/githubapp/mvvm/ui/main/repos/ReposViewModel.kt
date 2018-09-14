@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.githubapp.data.models.Repo
-import com.githubapp.mvvm.enums.LoadingState
 import com.githubapp.mvvm.enums.Sort
 import javax.inject.Inject
 
@@ -20,7 +19,7 @@ class ReposViewModel : ViewModel {
     }
 
     fun getLiveDataSource(): MutableLiveData<ReposDataSource>{
-        return dataSourceFactory.liveDataSource
+        return dataSourceFactory.liveReposSource
     }
 
     fun setQuery(query: String){
@@ -34,6 +33,6 @@ class ReposViewModel : ViewModel {
     }
 
     fun reloadData(){
-        dataSourceFactory.dataSource.invalidate()
+        dataSourceFactory.reposSource.invalidate()
     }
 }
