@@ -10,5 +10,57 @@
         android:name="com.githubapp.mvvm.ui.main.repos.ReposFragment"
         android:label="ReposFragment"
         tools:layout="@layout/fragment_repos">
+        <action
+            android:id="@+id/reposToUser"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/reposToRepo"
+            app:destination="@id/repoFragment" />
+        <action
+            android:id="@+id/reposToProfile"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/reposToSplash"
+            app:destination="@id/splashActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.githubapp.mvvm.ui.main.user.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user">
+        <argument
+            android:name="username"
+            app:argType="string"/>
+        <action
+            android:id="@+id/userToSplash"
+            app:destination="@id/splashActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/repoFragment"
+        android:name="com.githubapp.mvvm.ui.main.repo.RepoFragment"
+        android:label="RepoFragment"
+        tools:layout="@layout/fragment_repo">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="repoName"
+            app:argType="string" />
+        <action
+            android:id="@+id/repoToSplash"
+            app:destination="@id/splashActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.githubapp.mvvm.ui.main.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/profileToSplash"
+            app:destination="@id/splashActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.githubapp.mvvm.ui.splash.SplashActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_splash" />
 </navigation>

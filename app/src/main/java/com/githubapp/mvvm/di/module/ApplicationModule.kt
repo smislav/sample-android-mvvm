@@ -3,9 +3,9 @@ package com.githubapp.mvvm.di.module
 import android.content.Context
 import android.preference.PreferenceManager
 import com.githubapp.api.GithubApi
-import com.githubapp.data.source.GithubRepository
+import com.githubapp.mvvm.data.DataSource
 import com.githubapp.mvvm.GithubApp
-import com.githubapp.mvvm.data.remote.RemoteGithubRepository
+import com.githubapp.mvvm.data.remote.RemoteDataSource
 import com.githubapp.mvvm.ui.login.LoginManager
 import com.githubapp.mvvm.ui.login.LoginPreferences
 import dagger.Module
@@ -41,14 +41,14 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(githubService: GithubApi, loginManager: LoginManager): RemoteGithubRepository {
-        return RemoteGithubRepository(githubService, loginManager)
+    fun provideRemoteDataSource(githubService: GithubApi, loginManager: LoginManager): RemoteDataSource {
+        return RemoteDataSource(githubService, loginManager)
     }
 
     @Provides
     @Singleton
-    fun provideDataSource(remoteDataSource: RemoteGithubRepository): GithubRepository{
-        return GithubRepository(remoteDataSource)
+    fun provideDataSource(remoteDataSource: RemoteDataSource): DataSource {
+        return DataSource(remoteDataSource)
     }
 
     @Provides

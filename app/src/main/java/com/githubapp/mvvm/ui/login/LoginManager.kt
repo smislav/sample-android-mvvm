@@ -19,7 +19,7 @@ class LoginManager{
         this.context = context
         this.api = api
         this.preferences = preferences
-}
+    }
 
     fun login(email: String, password: String): Observable<Authorization>{
         return api.login(Credentials.basic(email, password), AuthorizationRequest(note = System.currentTimeMillis().toString()))
@@ -37,6 +37,10 @@ class LoginManager{
     fun isLogged(): Boolean{
         return preferences.getToken().isNotEmpty() &&
                preferences.getID().isNotEmpty()
+    }
+
+    fun token(): String{
+        return preferences.getToken()
     }
 
     fun user(): Observable<User> {

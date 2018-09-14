@@ -1,16 +1,16 @@
-package com.githubapp.data.source
+package com.githubapp.mvvm.data
 
 import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User
-import com.githubapp.mvvm.data.remote.RemoteGithubRepository
+import com.githubapp.mvvm.data.remote.RemoteDataSource
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GithubRepository : IGithubRepository{
-    private var remoteDataSource: RemoteGithubRepository
+class DataSource : IDataSource {
+    private var remoteDataSource: RemoteDataSource
 
     @Inject
-    constructor(remoteDataSource: RemoteGithubRepository){
+    constructor(remoteDataSource: RemoteDataSource){
         this.remoteDataSource = remoteDataSource
     }
 
