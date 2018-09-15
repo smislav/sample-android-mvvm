@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User
-import com.githubapp.mvvm.R
+import com.githubapp.mvvm.databinding.FragmentReposBinding
 import com.githubapp.mvvm.enums.LoadingState
 import com.githubapp.mvvm.enums.Sort
 import com.githubapp.mvvm.ui.base.BaseFragment
@@ -27,25 +27,44 @@ class ReposFragment : BaseFragment() {
 
     private lateinit var adapter: ReposAdapter
 
+    private lateinit var binding: FragmentReposBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_repos, container, false)
+        binding = FragmentReposBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[ReposViewModel::class.java]
+        viewModel.getLiveDataSource().observe(this, Observer { source ->
+            source.loadingState.observe(this, Observer { state ->
+                when(state!!){
+                    LoadingState.LOADING -> loading()
+                    LoadingState.LOADED -> loaded()
+                    LoadingState.ACCESS_ERROR -> accessError()
+                    LoadingState.NETWORK_ERROR -> networkError()
+                    LoadingState.UNKNOWN_ERROR -> unknownError()
+                }
+            })
+        })
+
         adapter = ReposAdapter()
         adapter.repoClick.observe(this, Observer { onRepoClick(it) })
         adapter.userClick.observe(this, Observer { onUserClick(it) })
+
+        binding.viewModel = viewModel
+        binding.adapter = adapter
 
         buttonProfile.setOnClickListener{ onProfileClick() }
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        recyclerRepos.setAdapter(adapter)
-        recyclerRepos.setLayoutManager(layoutManager)
+        recyclerRepos.adapter = adapter
+        recyclerRepos.layoutManager = layoutManager
         recyclerRepos.addItemDecoration(itemDecoration)
 
         refreshRepos.setOnRefreshListener {
@@ -67,22 +86,6 @@ class ReposFragment : BaseFragment() {
         toggleStars.setOnClickListener { viewModel.setSort(Sort.STARS) }
         toggleForks.setOnClickListener { viewModel.setSort(Sort.FORKS) }
         toggleUpdated.setOnClickListener { viewModel.setSort(Sort.UPDATED) }
-
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ReposViewModel::class.java]
-        viewModel.repos.observe(this, Observer {
-            adapter.submitList(it)
-        })
-        viewModel.getLiveDataSource().observe(this, Observer { source ->
-            source.loadingState.observe(this, Observer { state ->
-                when(state!!){
-                    LoadingState.LOADING -> loading()
-                    LoadingState.LOADED -> loaded()
-                    LoadingState.ACCESS_ERROR -> accessError()
-                    LoadingState.NETWORK_ERROR -> networkError()
-                    LoadingState.UNKNOWN_ERROR -> unknownError()
-                }
-            })
-        })
     }
 
     override fun showLoadingView() {
