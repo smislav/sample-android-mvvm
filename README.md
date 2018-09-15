@@ -1,1 +1,9 @@
-# H1 About
+# About
+This project demonstrate how to build Android application with most modern libraries for Android.
+Project is build in MVP architecture using AndroidX libraries with Dagger2, RxJava2, Retrofit2, Glide and Kotlin extensions(Synthetic Binding)
+
+# ToDo
+- Offline
+- DataBinding
+- Testing
+
