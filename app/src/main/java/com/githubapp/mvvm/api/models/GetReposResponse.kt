@@ -1,4 +1,4 @@
-package com.githubapp.api.models
+package com.githubapp.mvvm.api.models
 
 import com.githubapp.data.models.Repo
 import com.google.gson.annotations.SerializedName

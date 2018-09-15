@@ -1,6 +1,6 @@
 package com.githubapp.mvvm.data.remote
 
-import com.githubapp.api.GithubApi
+import com.githubapp.mvvm.api.GithubApi
 import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User
 import com.githubapp.mvvm.data.IDataSource

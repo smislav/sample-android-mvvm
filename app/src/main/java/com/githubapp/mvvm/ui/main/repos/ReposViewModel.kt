@@ -9,8 +9,9 @@ import com.githubapp.mvvm.enums.Sort
 import javax.inject.Inject
 
 class ReposViewModel : ViewModel {
-    var dataSourceFactory: ReposDataSourceFactory
     var repos: LiveData<PagedList<Repo>>
+
+    private var dataSourceFactory: ReposDataSourceFactory
 
     @Inject
     constructor(dataSourceFactory: ReposDataSourceFactory, repos: LiveData<PagedList<Repo>>){

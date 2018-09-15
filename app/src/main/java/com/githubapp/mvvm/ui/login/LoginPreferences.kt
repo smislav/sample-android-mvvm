@@ -17,17 +17,17 @@ class LoginPreferences{
     }
 
     fun getID(): String {
-        return preferences.getString(ID, "")
+        return preferences.getString(ID, "")!!
     }
 
     fun getToken(): String {
-        return preferences.getString(TOKEN, "")
+        return preferences.getString(TOKEN, "")!!
     }
 
     fun setID(id: String){
         preferences
                 .edit()
-                .putString("ID", id)
+                .putString(ID, id)
                 .apply()
     }
 

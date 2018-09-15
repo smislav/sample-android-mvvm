@@ -16,11 +16,9 @@ import kotlinx.android.synthetic.main.fragment_user.*
 import javax.inject.Inject
 
 class UserFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: UserViewModelFactory
+    @Inject lateinit var viewModelFactory: UserViewModelFactory
 
     private lateinit var viewModel: UserViewModel
-
     private lateinit var username: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

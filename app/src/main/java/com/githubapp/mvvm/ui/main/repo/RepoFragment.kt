@@ -17,11 +17,9 @@ import java.text.DateFormat
 import javax.inject.Inject
 
 class RepoFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: RepoViewModelFactory
+    @Inject lateinit var viewModelFactory: RepoViewModelFactory
 
     private lateinit var viewModel: RepoViewModel
-
     private lateinit var username: String
     private lateinit var repoName: String
 

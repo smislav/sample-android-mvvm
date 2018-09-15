@@ -1,10 +1,10 @@
-package com.githubapp.api
+package com.githubapp.mvvm.api
 
-import com.githubapp.api.models.Authorization
-import com.githubapp.mvvm.api.models.AuthorizationRequest
-import com.githubapp.api.models.GetReposResponse
 import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User
+import com.githubapp.mvvm.api.models.Authorization
+import com.githubapp.mvvm.api.models.AuthorizationRequest
+import com.githubapp.mvvm.api.models.GetReposResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 

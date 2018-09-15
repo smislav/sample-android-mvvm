@@ -11,15 +11,16 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ProfileViewModel : ViewModel {
-    var loginManager: LoginManager
     var user: MutableLiveData<User>
     var state: MutableLiveData<LoadingState>
 
+    private var loginManager: LoginManager
+
     @Inject
     constructor(loginManager: LoginManager){
-        this.loginManager = loginManager
         this.user = MutableLiveData()
         this.state = MutableLiveData()
+        this.loginManager = loginManager
     }
 
     fun getCurrentUser(){

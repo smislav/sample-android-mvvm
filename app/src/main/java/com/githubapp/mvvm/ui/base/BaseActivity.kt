@@ -10,8 +10,7 @@ import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity() {
-    @Inject
-    protected lateinit var loginManager: LoginManager
+    @Inject protected lateinit var loginManager: LoginManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

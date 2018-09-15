@@ -23,8 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="171717" />
-                                                <entry key="scalingPercent" value="86" />
+                                                <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -35,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="fontFamily" value="Verdana" />
+                                                <entry key="fontFamily" value="Segoe UI Semibold" />
                                                 <entry key="text" value="G" />
                                               </map>
                                             </option>

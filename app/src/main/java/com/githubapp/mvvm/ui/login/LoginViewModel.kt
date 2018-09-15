@@ -2,7 +2,7 @@ package com.githubapp.mvvm.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.githubapp.api.models.Authorization
+import com.githubapp.mvvm.api.models.Authorization
 import com.githubapp.helpers.SimpleCallbackWrapper
 import com.githubapp.mvvm.enums.LoadingState
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,13 +10,14 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class LoginViewModel : ViewModel{
-    private var loginManager: LoginManager
     var loadingState: MutableLiveData<LoadingState>
+
+    private var loginManager: LoginManager
 
     @Inject
     constructor(loginManager: LoginManager){
-        this.loginManager = loginManager
         this.loadingState = MutableLiveData()
+        this.loginManager = loginManager
     }
 
     fun login(username: String, password: String){

@@ -24,7 +24,6 @@ class ReposFragment : BaseFragment() {
     lateinit var viewModelFactory: ReposViewModelFactory
 
     private lateinit var viewModel: ReposViewModel
-
     private lateinit var adapter: ReposAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +43,8 @@ class ReposFragment : BaseFragment() {
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        recyclerRepos.setAdapter(adapter)
-        recyclerRepos.setLayoutManager(layoutManager)
+        recyclerRepos.adapter = adapter
+        recyclerRepos.layoutManager = layoutManager
         recyclerRepos.addItemDecoration(itemDecoration)
 
         refreshRepos.setOnRefreshListener {

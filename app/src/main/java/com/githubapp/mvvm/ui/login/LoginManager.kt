@@ -1,8 +1,8 @@
 package com.githubapp.mvvm.ui.login
 
 import android.content.Context
-import com.githubapp.api.GithubApi
-import com.githubapp.api.models.Authorization
+import com.githubapp.mvvm.api.GithubApi
+import com.githubapp.mvvm.api.models.Authorization
 import com.githubapp.data.models.User
 import com.githubapp.mvvm.api.models.AuthorizationRequest
 import io.reactivex.Observable
@@ -22,7 +22,7 @@ class LoginManager{
     }
 
     fun login(email: String, password: String): Observable<Authorization>{
-        return api.login(Credentials.basic(email, password), AuthorizationRequest(note = System.currentTimeMillis().toString()))
+        return api.login(Credentials.basic(email, password), AuthorizationRequest(System.currentTimeMillis().toString()))
                   .doOnNext {
                       preferences.setID(it.id)
                       preferences.setToken(it.token)

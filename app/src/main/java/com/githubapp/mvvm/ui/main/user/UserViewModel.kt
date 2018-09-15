@@ -11,15 +11,16 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class UserViewModel : ViewModel {
-    var data: DataSource
     var user: MutableLiveData<User>
     var state: MutableLiveData<LoadingState>
 
+    private var data: DataSource
+
     @Inject
     constructor(data: DataSource){
-        this.data = data
         this.user = MutableLiveData()
         this.state = MutableLiveData()
+        this.data = data
     }
 
     fun getUser(username: String){

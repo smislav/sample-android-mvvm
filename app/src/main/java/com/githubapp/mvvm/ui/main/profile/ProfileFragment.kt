@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: ProfileViewModelFactory
+    @Inject lateinit var viewModelFactory: ProfileViewModelFactory
 
     private lateinit var viewModel: ProfileViewModel
 

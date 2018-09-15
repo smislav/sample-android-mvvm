@@ -12,19 +12,19 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ReposDataSource: PageKeyedDataSource<Int, Repo> {
+    var loadingState: MutableLiveData<LoadingState>
+
     private var dataSource: DataSource;
     private var query: String
     private var sort: Sort
 
-    var loadingState: MutableLiveData<LoadingState>
-
     @Inject
     constructor(dataSource: DataSource, query: String, sort: Sort){
+        this.loadingState = MutableLiveData()
+
         this.dataSource = dataSource;
         this.query = query
         this.sort = sort
-
-        this.loadingState = MutableLiveData()
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Repo>) {

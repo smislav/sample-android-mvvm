@@ -15,8 +15,7 @@ class SplashActivity : BaseActivity() {
         const val SPLASH_TIME: Long = 3000
     }
 
-    @Inject
-    lateinit var viewModelFactory: SplashViewModelFactory
+    @Inject lateinit var viewModelFactory: SplashViewModelFactory
 
     private lateinit var viewModel: SplashViewModel
 

@@ -2,7 +2,7 @@ package com.githubapp.mvvm.di.module
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.githubapp.api.GithubApi
+import com.githubapp.mvvm.api.GithubApi
 import com.githubapp.mvvm.data.DataSource
 import com.githubapp.mvvm.GithubApp
 import com.githubapp.mvvm.data.remote.RemoteDataSource
@@ -35,7 +35,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideGithubService(retrofit: Retrofit): GithubApi{
+    fun provideGithubService(retrofit: Retrofit): GithubApi {
         return retrofit.create(GithubApi::class.java)
     }
 

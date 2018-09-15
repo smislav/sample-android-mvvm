@@ -8,16 +8,16 @@ import javax.inject.Inject
 
 class ReposDataSourceFactory : androidx.paging.DataSource.Factory<Int, Repo> {
     companion object {
-        const val DEFAULT_QUERY = "android"
+        const val DEFAULT_QUERY = "a"
         val DEFAULT_SORT = Sort.FORKS
     }
 
     var reposSource: ReposDataSource
     var liveReposSource: MutableLiveData<ReposDataSource>
-
-    var dataSource: DataSource
     var query: String
     var sort: Sort
+
+    private var dataSource: DataSource
 
     @Inject
     constructor(dataSource: DataSource){

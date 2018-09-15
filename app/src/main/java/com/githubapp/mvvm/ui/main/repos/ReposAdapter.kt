@@ -9,7 +9,7 @@ import com.githubapp.data.models.Repo
 import com.githubapp.data.models.User
 import com.githubapp.mvvm.R
 
-class ReposAdapter: PagedListAdapter<Repo, ReposViewHolder>(RepoDiffCallback) {
+class ReposAdapter: PagedListAdapter<Repo, ReposViewHolder>(DIFF_CALLBACK) {
     var userClick: MutableLiveData<User> = MutableLiveData()
     var repoClick: MutableLiveData<Repo> = MutableLiveData()
 
@@ -22,7 +22,7 @@ class ReposAdapter: PagedListAdapter<Repo, ReposViewHolder>(RepoDiffCallback) {
     }
 
     companion object {
-        val RepoDiffCallback = object : DiffUtil.ItemCallback<Repo>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Repo>() {
             override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem.id == newItem.id
             }

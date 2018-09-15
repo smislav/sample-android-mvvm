@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity() {
-    @Inject
-    lateinit var viewModelFactory: LoginViewModelFactory
+    @Inject lateinit var viewModelFactory: LoginViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
 

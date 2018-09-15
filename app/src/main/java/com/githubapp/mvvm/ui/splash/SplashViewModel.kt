@@ -6,13 +6,14 @@ import com.githubapp.mvvm.ui.login.LoginManager
 import javax.inject.Inject
 
 class SplashViewModel : ViewModel{
-    var loginManager: LoginManager
     var logged: MutableLiveData<Boolean>
+
+    private var loginManager: LoginManager
 
     @Inject
     constructor(loginManager: LoginManager){
+        this.logged = MutableLiveData()
         this.loginManager = loginManager
-        logged = MutableLiveData()
     }
 
     fun checkLogin(){
