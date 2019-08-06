@@ -8,4 +8,6 @@ Project is written in Kotlin and is using MVVM architecture in combination with 
 - Offline mode
 - DataBinding
 - Testing
+- Koin
+- Coroutines
 
